@@ -48,15 +48,16 @@ router.get("/products/:id", async (req, res) => {
 /* 상품 수정 API */
 
 /* 상품 삭제 API */
-// router.delete("/products/:id", async (req, res) => {
-// 	const { id } = req.params;
-// 	const products = await Product.findById(id).select('id').exec();
+router.delete("/products/:id", async (req, res) => {
+	const { id } = req.params;
+	const products = await Product.deleteOne({ _id: id }).exec();
 
-// 	return res.status(200).json({
-// 		"status": 200,
-// 		"message": "상품 삭제에 성공했습니다.",
-// 		"data": products
-// 	})
-// })
+
+	return res.status(200).json({
+		"status": 200,
+		"message": "상품 삭제에 성공했습니다.",
+		"data": products
+	})
+})
 
 export default router;
