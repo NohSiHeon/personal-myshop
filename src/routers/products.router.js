@@ -72,17 +72,19 @@ router.delete("/products/:id", async (req, res) => {
 	const { password } = req.body;
 
 	const products = await Product.findById(id).exec();
+	const productId = await Product.findById(id).select('id').exec();
 	if (products.password !== password) {
 		return res.status(404).json({ errorMessage: '비밀번호가 일치하지 않습니다.' });
 	}
+	await Product.deleteOne({ _id: id }).exec();
 
-	const deleteProducts = await Product.deleteOne({ _id: id }).exec();
 
 	return res.status(200).json({
 		"status": 200,
 		"message": "상품 삭제에 성공했습니다.",
-		"data": deleteProducts
+		"data": productId,
 	})
 })
+
 
 export default router;
