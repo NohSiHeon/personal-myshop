@@ -35,10 +35,28 @@ router.get("/products", async (req, res) => {
 });
 
 /* 상품 상세 조회 API */
-// router.get("/products/:id", async(req, res)=> {
+router.get("/products/:id", async (req, res) => {
+	const { id } = req.params;
+	const products = await Product.findById(id).select('name description manager status createdAt updateAt').exec();
 
-// })
+	return res.status(200).json({
+		"status": 200,
+		"message": "상품 상세 조회에 성공했습니다.",
+		"data": products
+	})
+})
 /* 상품 수정 API */
+
 /* 상품 삭제 API */
+// router.delete("/products/:id", async (req, res) => {
+// 	const { id } = req.params;
+// 	const products = await Product.findById(id).select('id').exec();
+
+// 	return res.status(200).json({
+// 		"status": 200,
+// 		"message": "상품 삭제에 성공했습니다.",
+// 		"data": products
+// 	})
+// })
 
 export default router;
