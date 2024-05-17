@@ -14,13 +14,13 @@ app.use(express.urlencoded({ extended: true }));
 const router = express.Router();
 
 app.get("/", (req, res) => {
-  return res.json({mssage: 'Hello World!!'});
+	return res.json({ mssage: 'Hello World!!' });
 });
 
 
 
 app.use('/', [router, ProductRouter]);
 
-app.listen(PORT, () => {
-  console.log(PORT, "포트로 서버가 열렸어요!");
+app.listen(PORT, "0.0.0.0", () => {
+	console.log(PORT, "포트로 서버가 열렸어요!");
 });
