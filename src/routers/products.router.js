@@ -52,7 +52,7 @@ router.patch('/products/:id', async (req, res) => {
 
 	const products = await Product.findById(id).exec();
 	if (products.password !== password) {
-		return res.status(404).json({ errorMessage: '비밀번호가 일치하지 않습니다.' })
+		return res.status(401).json({ errorMessage: '비밀번호가 일치하지 않습니다.' })
 	} else {
 		if (name !== null) products.name = name;
 		if (description !== null) products.description = description;
@@ -74,7 +74,7 @@ router.delete("/products/:id", async (req, res) => {
 	const products = await Product.findById(id).exec();
 	const productId = await Product.findById(id).select('id').exec();
 	if (products.password !== password) {
-		return res.status(404).json({ errorMessage: '비밀번호가 일치하지 않습니다.' });
+		return res.status(401).json({ errorMessage: '비밀번호가 일치하지 않습니다.' });
 	}
 	await Product.deleteOne({ _id: id }).exec();
 
